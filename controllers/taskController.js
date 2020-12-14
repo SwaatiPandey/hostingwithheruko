@@ -1,6 +1,8 @@
 const fs = require("fs");
 const path = require("path");
-const Task = require("../models/task.js");
+const mongoose = require("mongoose");
+// const Task = require("../models/task.js");
+const Task = require("../models/taskSchema.js");
 const AppError = require("../helper/appErrorClass");
 const sendErrorMessage = require("../helper/sendError");
 const sendResponse = require("../helper/sendResponse");
@@ -15,7 +17,7 @@ const verifyPostRequest = (req, res, next) => {
   });
   if (!result) {
     sendErrorMessage(
-      new appError(400, "unsuccessful", "request body is inavlid"),
+      new AppError(400, "unsuccessful", "request body is inavlid"),
       req,
       res
     );
@@ -25,23 +27,42 @@ const verifyPostRequest = (req, res, next) => {
 };
 
 const getAllTasks = (req, res, next) => {
-  sendResponse(200, "Successful", tasks, req, res);
+  // sendResponse(200, "Successful", tasks, req, res);
+  Task.find({})
+    .then((allTasks) => {
+      console.log("All tasks");
+      // console.log(allTasks);
+      sendResponse(200, "Successful", allTasks, req, res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const createTask = (req, res, next) => {
-  let newTask = new Task(req.body.taskName);
-  tasks.push(newTask);
-  fs.writeFile(fileName, JSON.stringify(tasks, null, 2), (err) => {
-    if (err) {
-      sendErrorMessage(
-        new AppError(500, "Internal Error", "Error in completing Request"),
-        req,
-        res
-      );
-      return err;
-    }
-    sendResponse(201, "Successful", newTask, req, res);
-  });
+  // let newTask = new Task(req.body.taskName);
+  // tasks.push(newTask);
+  // fs.writeFile(fileName, JSON.stringify(tasks, null, 2), (err) => {
+  //   if (err) {
+  //     sendErrorMessage(
+  //       new AppError(500, "Internal Error", "Error in completing Request"),
+  //       req,
+  //       res
+  //     );
+  //     return err;
+  //   }
+  //   sendResponse(201, "Successful", newTask, req, res);
+  // });
+  let newTask = new Task({ taskName: "added new task3" });
+  newTask
+    .save()
+    .then((data) => {
+      console.log(data);
+      sendResponse(201, "Successful", data, req, res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 // app.put("/update/:id", (res, res) => {
 //   const updateTask = arr.find((task) => {

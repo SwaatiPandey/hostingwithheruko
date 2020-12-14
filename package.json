@@ -11,8 +11,20 @@
   "author": "swati",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.7",
     "uniqid": "^5.2.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SwaatiPandey/hostingwithheruko.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SwaatiPandey/hostingwithheruko/issues"
+  },
+  "homepage": "https://github.com/SwaatiPandey/hostingwithheruko#readme"
 }
